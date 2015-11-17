@@ -1,0 +1,19 @@
+
+body {
+			margin-top: 2em;
+	}
+
+.dashboard {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
+.dashboard .rank-form {
+	flex-grow: 1;
+	width: 30rem;
+}
+
+.dashboard .latest-rankings {
+	flex-grow: 2;
+}
