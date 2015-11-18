@@ -12,6 +12,7 @@ var
 sdist
 develop-eggs
 .installed.cfg
+.ve
 
 # Installer logs
 pip-log.txt
@@ -28,3 +29,6 @@ pip-log.txt
 
 # Node
 node_modules
+
+# App
+lib

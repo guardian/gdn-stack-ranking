@@ -1,3 +1,5 @@
+var msgpack = require("msgpack-lite");
+
 angular.module('gdnStackRank', [])
 	.directive('gdnRankForm', rankForm)
 	.directive('gdnLatestRankings', [() => {
@@ -17,8 +19,12 @@ function rankForm() {
 
 }
 
-function RankFormController() {
+RankFormController.$inject = ['$http'];
+
+function RankFormController($http) {
 	var vm = this;
+
+	vm.name = undefined;
 
 	vm.roles =['Associate Software Developer',
 		'Software Developer',
@@ -45,7 +51,24 @@ function RankFormController() {
 	vm.year = vm.years[0];
 
 	vm.submit = () => {
-		console.log('Hello! Form should be submitting here!')
+		console.log('Hello! Form should be submitting here!');
+
+		var request = {
+			method: 'PUT',
+			url: '/api/ranking',
+			headers: {
+				'Content-Type': 'application/msgpack'
+			},
+			data: msgpack.encode({
+				name: vm.name,
+				role: vm.role,
+				year: vm.year.year,
+				quarter: vm.quarter,
+				grade: vm.grade
+			})
+		}
+		$http(request).then(() => vm.name = undefined,
+			() => console.log('Ranking post failed'));
 	}
 
 }
