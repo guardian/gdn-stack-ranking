@@ -1,18 +1,12 @@
 var rankForm = require("./rank-form");
+var latestRankings = require("./latest-rankings");
 
 var RankForm = rankForm.form;
 var RankFormController = rankForm.controller;
 
 var am = angular.module('gdnStackRank', [])
 	.directive('gdnRankForm', RankForm)
-	.directive('gdnLatestRankings', [() => {
-		return {
-			template: '<p>Latest here</p>'
-		};
-	}]);
-
-console.log(RankForm);
-console.log(RankFormController);
+	.directive('gdnLatestRankings', latestRankings.directive);
 
 RankFormController.$inject = ['$http'];
 
