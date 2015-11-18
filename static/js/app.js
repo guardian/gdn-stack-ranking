@@ -3188,30 +3188,30 @@ function EventLite() {
 })(EventLite);
 
 },{}],25:[function(require,module,exports){
-var msgpack = require("msgpack-lite");
+var rankForm = require("./rank-form");
 
-angular.module('gdnStackRank', [])
-	.directive('gdnRankForm', rankForm)
+var RankForm = rankForm.form;
+var RankFormController = rankForm.controller;
+
+var am = angular.module('gdnStackRank', [])
+	.directive('gdnRankForm', RankForm)
 	.directive('gdnLatestRankings', [() => {
 		return {
 			template: '<p>Latest here</p>'
 		};
 	}]);
 
-function rankForm() {
-
-	return {
-		templateUrl: '/static/html/rank-form.html',
-		controller: RankFormController,
-		controllerAs: 'vm',
-		bindToController: true
-	};
-
-}
+console.log(RankForm);
+console.log(RankFormController);
 
 RankFormController.$inject = ['$http'];
 
-function RankFormController($http) {
+am.controller('RankFormController', RankFormController);
+
+},{"./rank-form":26}],26:[function(require,module,exports){
+var msgpack = require("msgpack-lite");
+
+function controller($http) {
 	var vm = this;
 
 	vm.name = undefined;
@@ -3261,7 +3261,23 @@ function RankFormController($http) {
 			() => console.log('Ranking post failed'));
 	}
 
-}
+};
+
+function form() {
+
+	return {
+		templateUrl: '/static/html/rank-form.html',
+		controller: controller,
+		controllerAs: 'vm',
+		bindToController: true
+	};
+
+};
+
+module.exports = {
+	controller: controller,
+	form: form
+};
 
 },{"msgpack-lite":5}]},{},[25])
 

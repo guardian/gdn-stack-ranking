@@ -12,6 +12,7 @@ gulp.task('javascript', function () {
   // set up the browserify instance on a task basis
   var b = browserify({
     entries: './src/js/app.js',
+    paths: ['./node_modules', './src/js/'],
     debug: true,
     // defining transforms here will avoid crashing your stream
     transform: [reactify]
