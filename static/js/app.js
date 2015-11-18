@@ -3192,7 +3192,9 @@ var rankForm = require("./rank-form");
 var latestRankings = require("./latest-rankings");
 
 var RankForm = rankForm.form;
+
 var RankFormController = rankForm.controller;
+var LatestRankingsController = latestRankings.controller;
 
 var am = angular.module('gdnStackRank', [])
 	.directive('gdnRankForm', RankForm)
@@ -3200,18 +3202,42 @@ var am = angular.module('gdnStackRank', [])
 
 RankFormController.$inject = ['$http'];
 
+LatestRankingsController.$inject = ['$http'];
+
 am.controller('RankFormController', RankFormController);
+am.controller('LatestRankingsController', LatestRankingsController);
 
 },{"./latest-rankings":26,"./rank-form":27}],26:[function(require,module,exports){
 
+function controller($http) {
+	var vm = this;
+
+	vm.test = "Hello world";
+
+	console.log('Booting controller!');
+
+	var request = {
+		url: '/api/latest-rankings',
+		method: 'GET'
+	}
+
+	$http(request)
+		.then((data) => console.log(data),
+			() => console.log('Api read failed'));
+}
+
 function directive() {
 	return {
-		templateUrl: 'static/html/latest-rankings.html'
+		templateUrl: 'static/html/latest-rankings.html',
+		controller: controller,
+		controllerAs: 'vm',
+		bindToController: true
 	};
 }
 
 module.exports = {
-	directive: directive
+	directive: directive,
+	controller: controller
 };
 
 },{}],27:[function(require,module,exports){

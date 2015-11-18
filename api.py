@@ -7,6 +7,7 @@ from urllib import quote, urlencode
 import array
 
 from google.appengine.api import urlfetch
+from google.appengine.api import users
 
 import umsgpack
 
@@ -24,6 +25,13 @@ class SubmitRanking(webapp2.RequestHandler):
 
 		logging.info(ranking_data)
 
+class LatestRankings(webapp2.RequestHandler):
+	def get(self):
+		user = users.get_current_user()
+
+		logging.info(user)
+
 app = webapp2.WSGIApplication([
-	webapp2.Route(r'/api/ranking', handler=SubmitRanking),],
+	webapp2.Route(r'/api/ranking', handler=SubmitRanking),
+	webapp2.Route(r'/api/latest-rankings', handler=LatestRankings),],
                               debug=True)
