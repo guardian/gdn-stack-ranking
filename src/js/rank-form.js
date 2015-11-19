@@ -1,7 +1,9 @@
 var msgpack = require("msgpack-lite");
 
-function controller($http) {
+function rankController($http) {
 	var vm = this;
+
+	vm.test = "Hello world";
 
 	vm.name = undefined;
 
@@ -52,18 +54,21 @@ function controller($http) {
 
 };
 
-function form() {
+function directive() {
 
 	return {
 		templateUrl: '/static/html/rank-form.html',
-		controller: controller,
+		controller: rankController,
 		controllerAs: 'vm',
-		bindToController: true
+		bindToController: true,
+		scope: {
+			vm: '='
+		}
 	};
 
 };
 
 module.exports = {
-	controller: controller,
-	form: form
+	controller: rankController,
+	directive: directive
 };

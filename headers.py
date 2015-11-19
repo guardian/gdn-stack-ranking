@@ -13,3 +13,6 @@ def cache(response, cache_time):
 
 def json(response):
 	response.headers['Content-Type'] = 'application/json'
+
+def msgpack(response):
+	response.headers['Content-Type'] = 'application/msgpack'

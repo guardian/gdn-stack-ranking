@@ -3191,7 +3191,7 @@ function EventLite() {
 var rankForm = require("./rank-form");
 var latestRankings = require("./latest-rankings");
 
-var RankForm = rankForm.form;
+var RankForm = rankForm.directive;
 
 var RankFormController = rankForm.controller;
 var LatestRankingsController = latestRankings.controller;
@@ -3208,11 +3208,12 @@ am.controller('RankFormController', RankFormController);
 am.controller('LatestRankingsController', LatestRankingsController);
 
 },{"./latest-rankings":26,"./rank-form":27}],26:[function(require,module,exports){
-
 function controller($http) {
 	var vm = this;
 
 	vm.test = "Hello world";
+
+	vm.latestRankings = [];
 
 	console.log('Booting controller!');
 
@@ -3222,7 +3223,10 @@ function controller($http) {
 	}
 
 	$http(request)
-		.then((data) => console.log(data),
+		.then((result) => {
+				console.log(result);
+				console.log(result.data);
+			},
 			() => console.log('Api read failed'));
 }
 
@@ -3231,7 +3235,10 @@ function directive() {
 		templateUrl: 'static/html/latest-rankings.html',
 		controller: controller,
 		controllerAs: 'vm',
-		bindToController: true
+		bindToController: true,
+		scope: {
+			vm: '='
+		}
 	};
 }
 
@@ -3243,8 +3250,10 @@ module.exports = {
 },{}],27:[function(require,module,exports){
 var msgpack = require("msgpack-lite");
 
-function controller($http) {
+function rankController($http) {
 	var vm = this;
+
+	vm.test = "Hello world";
 
 	vm.name = undefined;
 
@@ -3295,20 +3304,23 @@ function controller($http) {
 
 };
 
-function form() {
+function directive() {
 
 	return {
 		templateUrl: '/static/html/rank-form.html',
-		controller: controller,
+		controller: rankController,
 		controllerAs: 'vm',
-		bindToController: true
+		bindToController: true,
+		scope: {
+			vm: '='
+		}
 	};
 
 };
 
 module.exports = {
-	controller: controller,
-	form: form
+	controller: rankController,
+	directive: directive
 };
 
 },{"msgpack-lite":5}]},{},[25])

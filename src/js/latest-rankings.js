@@ -1,8 +1,9 @@
-
 function controller($http) {
 	var vm = this;
 
 	vm.test = "Hello world";
+
+	vm.latestRankings = [];
 
 	console.log('Booting controller!');
 
@@ -12,7 +13,10 @@ function controller($http) {
 	}
 
 	$http(request)
-		.then((data) => console.log(data),
+		.then((result) => {
+				console.log(result);
+				console.log(result.data);
+			},
 			() => console.log('Api read failed'));
 }
 
@@ -21,7 +25,10 @@ function directive() {
 		templateUrl: 'static/html/latest-rankings.html',
 		controller: controller,
 		controllerAs: 'vm',
-		bindToController: true
+		bindToController: true,
+		scope: {
+			vm: '='
+		}
 	};
 }
 

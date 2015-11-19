@@ -1,7 +1,7 @@
 var rankForm = require("./rank-form");
 var latestRankings = require("./latest-rankings");
 
-var RankForm = rankForm.form;
+var RankForm = rankForm.directive;
 
 var RankFormController = rankForm.controller;
 var LatestRankingsController = latestRankings.controller;

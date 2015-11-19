@@ -6,7 +6,7 @@ class Configuration(ndb.Model):
 
 class Ranking(ndb.Model):
 	name = ndb.StringProperty(required=True)
-	job_title = ndb.StringProperty(required=True)
+	role = ndb.StringProperty(required=True)
 	year = ndb.IntegerProperty(required=True)
 	quarter = ndb.IntegerProperty(required=True)
 	grade = ndb.StringProperty(required=True)
